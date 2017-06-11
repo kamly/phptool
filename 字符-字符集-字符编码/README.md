@@ -1,9 +1,9 @@
 
 这个小工具关于：字符-字符集-字符编码
 
-理论可以参考[吹水](https://github.com/kamly/phptool/blob/master/%E5%AD%97%E7%AC%A6-%E5%AD%97%E7%AC%A6%E9%9B%86-%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/Theory.md)
+理论可以参考[吹水](https://github.com/kamly/phptool/blob/master/字符-字符集-字符编码/Theory.md)
 
-实践可以参看[代码](https://github.com/kamly/phptool/blob/master/%E5%AD%97%E7%AC%A6-%E5%AD%97%E7%AC%A6%E9%9B%86-%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81/play-character.php)
+实践可以参看[代码](https://github.com/kamly/phptool/blob/master/字符-字符集-字符编码/play-character.php)
 
 utf-8编码下
 ![](http://ww1.sinaimg.cn/large/8c2e9604gy1fgfsbwvlesj20ho0cqq3f.jpg)
