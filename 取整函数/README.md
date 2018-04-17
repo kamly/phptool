@@ -1,10 +1,10 @@
 
-这个小工具关于：取整函数
+## 简介
 
 
-[test.php](https://github.com/kamly/phptool/blob/master/取整函数/test.php)是关于取整函数，具体内容请看代码
+参考[index.php](./取整函数/index.php)脚本，介绍 `ceil,floor,round,intval` 用法
 
 
-[参考资料](http://www.jb51.net/article/41021.htm)
+[PHP取整函数:ceil,floor,round,intval的区别详细解析-参考资料](http://www.jb51.net/article/41021.htm)
 
 
