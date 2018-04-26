@@ -1,47 +1,22 @@
 <?php
 
-header('content-type:text/html;charset=utf-8');
+header('content-type:text/html);charset=utf-8');
 
-// 英文文本转换时间戳
+//  strtotime() 函数的使用及常用参数介绍
 
-echo time();
-echo '<br/>';
+var_dump("time() : " . time());
 
-echo strtotime('now');
-echo '<br/>';
+var_dump("strtotime('now') : " . strtotime('now'));
 
-echo date('Y-m-d H:i:s');
-echo '<br/>';
+var_dump("date('Y-m-d H:i:s') : " . date('Y-m-d H:i:s'));
 
+var_dump("date('Y-m-d H:i:s', time()+24*3600) : " . date('Y-m-d H:i:s', time() + 24 * 3600));
 
-echo date('Y-m-d H:i:s', time()+24*3600);
-echo '<br/>';
-
-
-echo date('Y-m-d H:i:s', strtotime('+1 day'));
-echo '<br/>';
-
-
-echo date('Y-m-d H:i:s', strtotime('-1 day'));
-echo '<br/>';
-
-
-echo date('Y-m-d H:i:s', strtotime('+1 month'));
-echo '<br/>';
-
-echo date('Y-m-d H:i:s', strtotime('+1 year 3 month 12 day'));
-echo '<br/>';
-
-
-echo date('Y-m-d H:i:s', strtotime('last Monday'));
-echo '<br/>';
-
-
-
-
-
-
-
+var_dump("date('Y-m-d H:i:s', strtotime('+1 day')) : " . date('Y-m-d H:i:s', strtotime('+1 day')));
+var_dump("date('Y-m-d H:i:s', strtotime('-1 day')) : " . date('Y-m-d H:i:s', strtotime('-1 day')));
+var_dump("date('Y-m-d H:i:s', strtotime('+1 month')) : " . date('Y-m-d H:i:s', strtotime('+1 month')));
+var_dump("date('Y-m-d H:i:s', strtotime('+1 year 3 month 12 day')) : " . date('Y-m-d H:i:s', strtotime('+1 year 3 month 12 day')));
+var_dump("date('Y-m-d H:i:s', strtotime('last Monday')) : " . date('Y-m-d H:i:s', strtotime('last Monday')));
 
 
 

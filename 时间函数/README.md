@@ -1,26 +1,23 @@
 
-这个小工具关于：时间函数
+## 简介
+
+时间函数
 
 
-[1-phpinfo.php](https://github.com/kamly/phptool/blob/master/时间函数/1-phpinfo.php)是关于phpinfo
+- phpinfo() 查看php配置文件 [1-phpinfo.php](./1-phpinfo.php)
 
+- 修改 php 时间配置属性[2-timezone.php](./2-timezone.php)
 
-[2-timezone.php](https://github.com/kamly/phptool/blob/master/时间函数/2-timezone.php)是关于timezone
+- date()函数的使用及常用参数介绍 [3-date.php](./3-date.php)
 
+- time() mktime() [4-time-mktime.php](./4-time-mktime.php)
 
-[3-date.php](https://github.com/kamly/phptool/blob/master/时间函数/3-date.php)是关于date
+- strtotime() 函数的使用及常用参数介绍[5-strtotime.php](./5-strtotime.php)
 
+- microtime()  getdate() gettimeofday() checkdate() 函数的使用及常用参数介绍[6-otherFun.php](./6-otherFun.php)
 
+- 计算学期的函数 [7-countTerm.php](./7-countTerm.php)
 
-[4-time-mktime.php](https://github.com/kamly/phptool/blob/master/时间函数/4-time-mktime.php)是关于time-mktime
+更多知识参考[PHP进阶篇-日期时间函数](https://www.imooc.com/learn/698)
 
-
-[5-strtotime.php](https://github.com/kamly/phptool/blob/master/时间函数/5-strtotime.php)是关于strtotime
-
-
-
-[6-otherFun.php](https://github.com/kamly/phptool/blob/master/时间函数/6-otherFun.php)是关于otherFun
-
-
-[7-countTerm.php](https://github.com/kamly/phptool/blob/master/时间函数/7-countTerm.php)是关于countTerm
-
+[参考资料](http://php.net/manual/zh/ref.datetime.php)
