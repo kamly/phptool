@@ -6,9 +6,9 @@
      * @return string
      */
     function rand_code($length,$type = null) {
-    	if($type == 'num'){
+    	if ($type == 'num') {
     		$rand_factor = array("123456789");
-    	}else{
+    	} else {
 	        $rand_factor = array("0123456789",
 	            "abcdefghijklmnopqrstuvwxyz",
 	            "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
