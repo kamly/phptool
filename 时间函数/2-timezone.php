@@ -4,7 +4,7 @@ header('content-type:text/html;charset=utf-8');
 // 设置时区
 
 /**
- * 1. 
+ * 1.
  * 配置文件修改
  * 2.
  * date_default_timezone_set() // 动态设置

@@ -12,12 +12,12 @@ var_dump("time() : " . time());
 var_dump("microtime(true) : " . microtime(true)); // 1497483740.7663
 
 
-$start = microtime(true); 
-for ($i=0; $i <= 100000 ; $i++) { 
-	$arr[] = $i;
+$start = microtime(true);
+for ($i = 0; $i <= 100000; $i++) {
+    $arr[] = $i;
 }
-$end = microtime(true); 
-var_dump("round($end-$start, 4) : " . round($end-$start, 4));
+$end = microtime(true);
+var_dump("round($end-$start, 4) : " . round($end - $start, 4));
 
 // getdate() 
 // gettimeofday() 
