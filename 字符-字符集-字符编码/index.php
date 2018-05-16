@@ -1,15 +1,15 @@
 <?php
 header("Content-Type: text/html; charset=UTF-8");
 
-$str = unicode_decode('\u949f\u4e3d\u7f07', 'UTF-8', true, '\u', ''); // 转码 Unicode编码转汉字
-var_dump(mb_detect_encoding($str, array("ASCII", 'UTF-8', 'GB2312', 'GBK', 'BIG5'))); // 检查编码
+$str = unicode_decode('\u949f\u4e3d\u7f07', 'UTF-8', true, '\u', ''); // Unicode编码 转 UTF-8
+var_dump("Unicode编码 转 UTF-8 : " . $str);
+var_dump("检查编码 : " . mb_detect_encoding($str, array("ASCII", 'UTF-8', 'GB2312', 'GBK', 'BIG5'))); // 检查编码
+
+var_dump("UTF-8 转 gbk : " . iconv("UTF-8", "gbk//TRANSLIT", $str));  // UTF-8 转 gbk
+var_dump("UTF-8 转 gbk : " . mb_convert_encoding($str, 'gbk', 'auto')); //  UTF-8 转 gbk
 
 
-var_dump(iconv("UTF-8", "gbk//TRANSLIT", $str));  // 转码 UTF-8->gbk
-var_dump(mb_convert_encoding($str, 'gbk', 'auto')); // 转码 UTF-8->gbk
-var_dump($str);
-
-var_dump(iconv("UTF-8", "gb2312//TRANSLIT", '123—123哈哈')); // 报错
+var_dump("UTF-8 转 gb2312 : " . iconv("UTF-8", "gb2312//TRANSLIT", '123—123哈哈')); // UTF-8 转 gb2312
 // var_dump(iconv("UTF-8","gb2312",'123—123哈哈')); // 提示错误
 
 /**
@@ -55,3 +55,69 @@ function unicode_encode($str, $encoding = 'UTF-8', $ishex = false, $prefix = '&#
     }
     return $unistr;
 }
+
+
+
+/**
+ *  检测字符串是否UTF8
+ *
+ * @param string $str
+ * @return boolean
+ */
+function isUtf8($str)
+{
+    return ($str === iconv('UTF-8', 'UTF-8//IGNORE', $str));
+}
+
+var_dump("检测字符串是否UTF8 : " . isUtf8("123—123哈哈"));
+
+
+/**
+ *  递归转换成utf8编码
+ *
+ * @param string|array $data
+ * @return string|array
+ */
+function toUtf8($data)
+{
+    //字符串
+    if (!is_array($data)) {
+        if ($data === iconv('UTF-8', 'UTF-8//IGNORE', $data)) {
+            return $data;
+        }
+        return getUTFString($data);
+    }
+    foreach ($data as &$value) {
+        $value = toUtf8($value);
+    }
+    return $data;
+}
+
+
+/**
+ * 编码转换成 Gbk
+ *
+ * @param $data string
+ * @return string
+ */
+function getGbkString($string)
+{
+    $encoding = mb_detect_encoding($string, array('ASCII', 'GB2312', 'UTF-8', 'BIG5'));
+    return mb_convert_encoding($string, 'GBK', $encoding);
+}
+
+/**
+ * 编码转换成 utf-8
+ *
+ * @param $data string
+ * @return string
+ */
+function getUTFString($string)
+{
+    $encoding = mb_detect_encoding($string, array('ASCII', 'GB2312', 'GBK', 'BIG5'));
+    return mb_convert_encoding($string, 'utf-8', $encoding);
+}
+
+$data = mb_convert_encoding('你好呀', 'gbk', 'auto'); // utf8 转 gbk
+var_dump("gbk 转 utf8 : " . getUTFString($data));  // gbk 转 utf8
+var_dump("gbk 转 utf8 : " . toUtf8($data));
