@@ -126,32 +126,12 @@ var_dump("isIdCardsCorrect('440181199605060612') : " . isIdCardsCorrect('4401811
 
 
 /**
- * 检测一个数组是否为二维数组
- * @param $rs
- * @return bool
- */
-function isMultiArray($rs)
-{
-    foreach ($rs as $value) {
-        if (is_array($value)) {
-            return TRUE;
-        }
-    }
-    return FALSE;
-}
-
-$data_1 = [1,2,3];
-$data_2 = ["name" => "kamly","age" => 2, "address" => ["city" => "gz", "home" => "keyi"]];
-var_dump("isMultiArray([1,2,3]) : " . isMultiArray($data_1));
-var_dump("isMultiArray([\"name\" => \"kamly\",\"age\" => 2, \"address\" => [\"city\" => \"gz\", \"home\" => \"keyi\"]]) : " . isMultiArray($data_2));
-
-
-/**
  * 检测是否JSON串
  * @param $str
  * @return bool
  */
-function isJsonStr($str) {
+function isJsonStr($str)
+{
     return is_string($str);
 }
 
@@ -165,7 +145,8 @@ var_dump("isJsonStr(json_encode([1, 2, 3])) : " . isJsonStr($data_2));
  * @param $birthday
  * @return mixed|null
  */
-function getConstellationByBirthday($birthday) {
+function getConstellationByBirthday($birthday)
+{
     $names = array('魔羯座', '水瓶座', '双鱼座', '白羊座', '金牛座', '双子座', '巨蟹座',
         '狮子座', '处女座', '天秤座', '天蝎座', '射手座', '魔羯座');
     $times = array(
@@ -186,7 +167,6 @@ function getConstellationByBirthday($birthday) {
 var_dump("getConstellationByBirthday(\"0506\") : " . getConstellationByBirthday("0506"));
 
 
-
 /**
  * 替换字符串中的预替换变量为数组中的值
  * @example $str = '<a href="{URL}">{NAME}</a>';
@@ -199,7 +179,8 @@ var_dump("getConstellationByBirthday(\"0506\") : " . getConstellationByBirthday(
  * @param $data
  * @return mixed
  */
-function replaceVar($str, $data) {
+function replaceVar($str, $data)
+{
     if (!$str || !$data) {
         return $str;
     }
@@ -213,10 +194,148 @@ function replaceVar($str, $data) {
     }
     return $str;
 }
+
 $str = '<a href="{URL}">{NAME}</a>';
 $data = array(
-    'URL'  => 'http://www.dodoedu.com',
+    'URL' => 'http://www.dodoedu.com',
     'NAME' => '多多社区'
 );
 var_dump('replaceVar($str, $data) : ' . replaceVar($str, $data));
+
+
+/**
+ *  输出调试信息
+ *
+ * @param string|array $msg 要输出的数组或字符串
+ * @param string $title 信息提示标题
+ * @param string $spaceChar 换行符
+ * @param boolean $isVarDump 是否var_dump方式输出
+ */
+function debug($msg, $title = null, $spaceChar = '<br>', $isVarDump = FALSE)
+{
+    $titleMsg = $title ? $title . ' ==> ' : '';
+    echo $spaceChar . $titleMsg;
+    if ($isVarDump) {
+        var_dump($msg);
+    } else {
+        if (is_array($msg)) {
+            print_r($msg);
+        } else {
+            echo $msg;
+        }
+    }
+    echo $spaceChar;
+}
+
+debug('test', 'warm', "", TRUE);
+
+/**
+ * 返回邮箱的域名地址
+ *
+ * @param string $email
+ * @return string
+ */
+function getMailHost($email)
+{
+    $ps = strpos($email, '@') + 1;
+    $mailHost = substr($email, $ps, strlen($email) - $ps);
+    $ret = ('gmail.com' == $mailHost) ? 'google.com' : $mailHost;
+    return 'mail.' . $ret;
+}
+
+var_dump("getMailHost('121368588@qq.com') : " . getMailHost('121368588@qq.com'));
+
+
+/**
+ * file_get_contents 方式获取接口数据，入口参数GET
+ *
+ * @param $aRs 调用接口时的参数
+ * @return 返回JSON数据串或错误码
+ */
+function getRemoteData($url, $timeOut = 5, $post = null)
+{
+    $opts = array(
+        'http' => array(
+            'method' => 'GET',
+            'timeout' => 5
+        )
+    );
+    $context = stream_context_create($opts); // 创建并返回一个文本数据流并应用各种选项
+    if (is_array($post)) {
+        ksort($post);
+        $param = http_build_query($post, '', '&');
+        $url = $url . '?' . $param;
+    }
+    $ret = file_get_contents($url, false, $context);
+    //匹配是否是正则串
+    $isJsonStr = preg_match("/^(\[\{(.*?):(.*?)\}\])|(\{(.*?):(.*?)\})$/", $ret);
+    $retRs = $isJsonStr ? json_decode($ret, TRUE) : FALSE;
+    return $retRs;
+}
+
+
+/**
+ * 对象转数组
+ * @param object $obj
+ * @return array
+ */
+function object2array($obj)
+{
+    $arr = is_object($obj) ? get_object_vars($obj) : $obj;
+    foreach ((array)$arr as $key => $val) {
+        $val = (is_array($val) || is_object($val)) ? object2array($val) : $val;
+        $arr[$key] = $val;
+    }
+    return $arr;
+}
+
+class person
+{
+    public $name = "王美人";
+    public $age = 25;
+    public $birth;
+}
+
+$p = new person();
+var_dump('object2array($p) : ');
+var_dump(object2array($p));
+
+
+/**
+ * 将数组转换成JSON串,并base64编码，便于在URL传递
+ * @param array $msgRs
+ * @return string
+ */
+function encodeStr($msgRs)
+{
+    return base64_encode(json_encode($msgRs));
+}
+
+
+var_dump("encodeStr('https://charmingkamly.cn/ajsodfjoi23&*^234') : " . encodeStr('https://charmingkamly.cn/ajsodfjoi23&*^234'));
+
+/**
+ * 对 encodeStr 的解码
+ *
+ * @return array
+ */
+function decodeStr($encodeStr)
+{
+    return json_decode(base64_decode($encodeStr), TRUE);
+}
+
+var_dump("decodeStr('Imh0dHBzOlwvXC9jaGFybWluZ2thbWx5LmNuXC9hanNvZGZqb2kyMyYqXjIzNCI=') : " . decodeStr('Imh0dHBzOlwvXC9jaGFybWluZ2thbWx5LmNuXC9hanNvZGZqb2kyMyYqXjIzNCI='));
+
+
+
+
+
+
+
+
+
+
+
+
+
 
